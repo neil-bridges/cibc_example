@@ -1,6 +1,12 @@
 package PageObjects;
 
-//import java.util.concurrent.TimeUnit;
+/*
+ * Author: Neil Bridges Date: 6/28/2021
+ *
+ * Page will Load Google input Cibc into search then click 
+ * cibc link. 
+ *
+ */
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

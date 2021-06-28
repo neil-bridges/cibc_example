@@ -1,5 +1,11 @@
 package PageObjects;
 
+/*
+ * Author: Neil Bridges Date: 6/28/2021
+ *
+ * Cibc page loaded from search bar within the Cibc homepage.
+ */
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;

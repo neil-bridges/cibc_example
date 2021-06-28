@@ -1,5 +1,13 @@
 package PageObjects;
 
+
+/*
+ * Author: Neil Bridges Date: 6/28/2021
+ *
+ *  Cibc page loads then accept the cookies. Will mouse hover
+ * over dropdowns then input 'mortgage' into search bar and load that page.
+ *
+ */
 import java.util.concurrent.TimeUnit;
 
 

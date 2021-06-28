@@ -1,5 +1,14 @@
 package excel;
 
+
+/*
+ * Author: Neil Bridges Date: 6/28/2021
+ *
+ * Writes data and reads data from Excel file
+ *
+ */
+
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,57 +23,70 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExcelPractice {
 
 	static String filePath = "C:\\Users\\neil.bridges\\Desktop\\misc\\practiceScripts\\ReadWritePractice.xlsx";
-	
-	static String data = "This is a test"; 
+
+	static String data = "This is a test";
 	int sheet;
-	int row; 
+	int row;
 	int column;
-	
+
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		ExcelPractice.excelWrite(filePath, data, 0, 0, 0);
-		ExcelPractice.excelRead(filePath, 0, 0, 0);;
-		
+		ExcelPractice.excelRead(filePath, 0, 0, 0);
+
+	}
+	
+	
+	/*
+	 * Author: Neil Bridges Date: 6/28/2021
+	 *
+	 * Writes to Excel file
+	 *
+	 */
+
+	public static void excelWrite(String filePath, String data, int sheet, int row, int column) throws Exception {
+
+		try {
+			FileInputStream inputStream = new FileInputStream(new File(filePath));
+			XSSFWorkbook WB1 = new XSSFWorkbook(inputStream);
+			XSSFSheet S1 = WB1.getSheetAt(sheet);
+			Cell C1 = null;
+			Row R1 = S1.getRow(row);
+			if (R1 == null) {
+				R1 = S1.createRow(row);
+			}
+			C1 = R1.getCell(column);
+			if (C1 == null) {
+				C1 = R1.createCell(column);
+			}
+			C1.setCellValue(data);
+			inputStream.close();
+			FileOutputStream output = new FileOutputStream(filePath);
+			WB1.write(output);
+			// WB1.close();
+			output.close();
+			System.out.println("Session Finished");
+		} catch (IOException | EncryptedDocumentException ex) {
+			((Throwable) ex).printStackTrace();
+		}
+
 	}
 
-	public static void excelWrite(String filePath, String data, int sheet, int row, int column) throws Exception{
-        
-        try {
-               FileInputStream inputStream = new FileInputStream(new File(filePath));
-               XSSFWorkbook WB1 = new XSSFWorkbook(inputStream);                
-               XSSFSheet S1 = WB1.getSheetAt(sheet);
-               Cell C1 = null;
-               Row R1 = S1.getRow(row);
-               if(R1 == null) {
-                      R1 = S1.createRow(row);
-               }
-               C1 = R1.getCell(column);
-               if(C1 == null) {
-                      C1 = R1.createCell(column);                          
-               }
-               C1.setCellValue(data);
-               inputStream.close();
-               FileOutputStream output = new FileOutputStream(filePath);
-               WB1.write(output);
-      //         WB1.close();
-               output.close();
-               System.out.println("All done");
-        } catch (IOException| EncryptedDocumentException ex){
-               ((Throwable) ex).printStackTrace();
-        }
-        
-        
-  }
-
+	/*
+	 * 
+	 * Author: Neil Bridges Date: 6/28/2021
+	 *
+	 * Reads from Excel file
+	 *
+	 */
 
 	public static void excelRead(String filePath, int sheet, int row, int column) throws Exception {
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(filePath));
 			XSSFWorkbook WB1 = new XSSFWorkbook(inputStream);
 			XSSFSheet S1 = WB1.getSheetAt(sheet);
-			
+
 			int rowCount = S1.getLastRowNum() - S1.getFirstRowNum();
-			
 
 			for (int i = 0; i < rowCount + 1; i++) {
 
@@ -82,19 +104,13 @@ public class ExcelPractice {
 
 				System.out.println();
 			}
-			
-			
+
 			inputStream.close();
 
 		} catch (IOException | EncryptedDocumentException ex) {
 			((Throwable) ex).printStackTrace();
 		}
-		
-	}
-	
-	
-	
 
-	
+	}
 
 }

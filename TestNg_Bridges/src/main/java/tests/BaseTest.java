@@ -28,7 +28,14 @@ import PageObjects.CibcP2;
 import PageObjects.Google;
 
 
-
+/*
+ * Author: Neil Bridges Date: 6/28/2021
+ *
+ * Page will Load Google input Cibc into search then click 
+ * cibc link. Cibc page loads then accept the cookies. Will mouse hover
+ * over dropdowns then input 'mortgage' into search bar and load that page.
+ *
+ */
 public class BaseTest {
 
 	String driverPath = "C:\\chromedriver.exe";
