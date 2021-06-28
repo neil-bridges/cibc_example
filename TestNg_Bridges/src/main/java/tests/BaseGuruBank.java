@@ -8,9 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -23,35 +21,30 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
-import pageobjects.Cibc;
-import pageobjects.CibcP2;
-import pageobjects.Google;
 
+import pageobjects.GuruBank;
 
 /*
  * Author: Neil Bridges Date: 6/28/2021
  *
- * Page will Load Google input Cibc into search then click 
- * cibc link. Cibc page loads then accept the cookies. Will mouse hover
- * over dropdowns then input 'mortgage' into search bar and load that page.
+ * Example of closes alerts
  *
  */
-public class BaseTest {
+public class BaseGuruBank {
 
+	
 	String driverPath = "C:\\chromedriver.exe";
+	
 
+	GuruBank objGuruBank;
+	
 	WebDriver driver;
-	Actions action;
-	Cibc objCibc;
-	CibcP2 objCibcP2;
-	Google objGoogle;
-	
-	
 	ExtentHtmlReporter htmlReporter;
 	ExtentReports Reports;
 	ExtentTest logger;
-	WebElement element;
-
+	
+	
+	
 	@BeforeTest
 	public void setup() {
 
@@ -60,37 +53,22 @@ public class BaseTest {
 		Reports.attachReporter(htmlReporter);
 		System.setProperty("webdriver.chrome.driver", driverPath);
 		driver = new ChromeDriver();
-		driver.get("https://www.google.com/");
+		driver.get("http://demo.guru99.com/popup.php/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
-
+	
+	
 	@Test(priority = 0)
 	public void testOne() throws InterruptedException {
 		logger = Reports.createTest("testOne");
-		objGoogle = new Google(driver);
-	    objGoogle.typeSearchItem("cibc");
-		objGoogle.cibcLinkClicked();
+		objGuruBank = new GuruBank(driver);
+		objGuruBank.windowHandle();		
 		logger.log(Status.PASS, "testOne");
-	}
-
-	@Test(priority = 1)
-	public void testTwo() throws InterruptedException {
-		logger = Reports.createTest("testTwo");
-		objCibc = new Cibc(driver);
-		objCibc.homePage();
-		objCibcP2 = objCibc.typeSearchItem("mortgage");
-		logger.log(Status.PASS, "testOne");
+		
 	}
 	
-	@Test(priority = 2)
-	public void testThree() throws InterruptedException {
-		logger = Reports.createTest("testThree");
-		objCibcP2 = new CibcP2(driver);
-		Assert.assertEquals(objCibcP2.returnPageTitle(), "Search Results");
-		
-    	logger.log(Status.PASS, "testThree");
-	}
+	
 	
 	@AfterMethod()
 	public void afterTest(ITestResult Result) throws IOException {
@@ -111,5 +89,6 @@ public class BaseTest {
 		Reports.flush();
 		driver.quit();
 	}
-
+	
+	
 }

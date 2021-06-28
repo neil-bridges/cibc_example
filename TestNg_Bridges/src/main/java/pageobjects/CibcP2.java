@@ -1,4 +1,4 @@
-package PageObjects;
+package pageobjects;
 
 /*
  * Author: Neil Bridges Date: 6/28/2021
